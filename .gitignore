@@ -18,12 +18,6 @@ migrate_working_dir/
 # Exclude old LightOre project
 LightOre/
 
-# IntelliJ related
-*.iml
-*.ipr
-*.iws
-.idea/
-
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.
@@ -71,3 +65,25 @@ android/local.properties
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+
+# Web
+web/.dart_tool/
+web/build/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# IntelliJ / Android Studio
+.idea/
+*.iml
+
+# Secrets / Env
+.env
+*.key
+*.pem
+firebase_options.dart
+google-services.json
+GoogleService-Info.plist
+

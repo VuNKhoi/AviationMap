@@ -5,6 +5,10 @@ This document provides a detailed, step-by-step checklist for migrating the Ligh
 ---
 
 ## 1. Project Setup & Initialization
+
+## App Flow
+1. Implement splash screen as the initial entry point for the app.
+2. Transition to map screen after splash.
 - [x] Create a new Aviation Map repository and workspace.
 - [x] Set up version control (Git) and configure remote origin.
 - [x] Copy and rename all documentation files (docs/) from LightOre to Aviation Map, updating references and branding.

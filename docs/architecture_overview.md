@@ -9,11 +9,17 @@ AviationMap is architected for maintainability, testability, and scalability, fo
 - **Interface Segregation Principle:** Use small, focused interfaces.
 - **Dependency Inversion Principle:** Depend on abstractions, not concretions.
 
-## Project Structure
 
+## App Flow
+1. App launches with a splash screen for branding and resource preparation.
+2. After a brief delay, the app transitions to the main map view.
+3. All subsequent navigation and features are accessible from the map screen.
+
+## Project Structure
 | Folder | Purpose |
 |--------|---------|
-| lib/features/ | Feature-based code (map, home, options, etc.) |
+| lib/features/splash/ | Splash screen feature |
+| lib/features/map/ | Map feature |
 | lib/core/ | Shared utilities, base classes |
 | lib/constants.dart | App-wide constants |
 | lib/widgets/ | Shared UI widgets |
@@ -30,7 +36,7 @@ AviationMap is architected for maintainability, testability, and scalability, fo
 - Skipping tests for new features
 - Hardcoding secrets or config in code
 
-- `lib/features/` — Feature-based folders (auth, map, home, options, etc.)
+- `lib/features/` — Feature-based folders (map, splash, options, etc.)
 - `lib/core/` — Shared core utilities, base classes, and abstractions
 - `lib/constants.dart` — App-wide constants
 - `lib/widgets/` — Shared UI widgets
@@ -61,7 +67,6 @@ Each feature folder contains:
 
 See the following docs for detailed explanations and rationale for each feature:
 - [Map Feature](./feature_map.md)
-- [Home Feature](./feature_home.md)
 - [Options Feature](./feature_options.md)
 
 ---

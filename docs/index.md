@@ -2,6 +2,9 @@
 
 Welcome to the documentation hub for AviationMap. Below you'll find links and summaries for all major docs, features, and technical guides.
 
+## App Flow
+* Splash screen displays on launch, then transitions to map view.
+
 ## Core Docs
 - [README.md](../README.md): Project overview, architecture, mapping strategy, and philosophy.
 - [Architecture Overview](./architecture_overview.md): SOLID principles, folder structure, dependency management, and testing.
@@ -10,7 +13,6 @@ Welcome to the documentation hub for AviationMap. Below you'll find links and su
 
 ## Features
 - [Map Feature](./feature_map.md): Map overlays, user location, and extensibility.
-- [Home Feature](./feature_home.md): Main app screen, navigation, and integration.
 - [Options Feature](./feature_options.md): Option bubble/grid for quick actions.
 
 ## Integrations & Pipelines

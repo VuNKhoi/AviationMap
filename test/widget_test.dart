@@ -9,22 +9,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:aviationmap/main.dart';
+import 'package:aviationmap/features/splash/splash_screen.dart';
+import 'package:aviationmap/features/map/map_screen.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('Splash screen displays, runs setup, and transitions to map', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(const AviationMapApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    // Splash screen should be visible initially
+    expect(find.byType(SplashScreen), findsOneWidget);
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+    expect(find.text('AviationMap'), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    // Wait for setup and navigation
+    await tester.pump(const Duration(seconds: 2));
+    await tester.pumpAndSettle();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Map screen should be visible after splash
+    expect(find.byType(MapScreen), findsOneWidget);
   });
 }
