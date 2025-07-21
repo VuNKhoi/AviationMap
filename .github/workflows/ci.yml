@@ -88,6 +88,8 @@ jobs:
             ~/.pub-cache
             .dart_tool
           key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.yaml') }}
+      - name: Get Flutter packages
+        run: flutter pub get
       - name: Build APK 🤖
         run: flutter build apk --debug
       - name: Upload APK Artifact 📎
@@ -103,8 +105,6 @@ jobs:
     steps:
       - name: Checkout code 📦
         uses: actions/checkout@v4
-      - name: Print directory tree for debugging
-        run: find . | head -1000
       - name: Set up Flutter 💙
         uses: subosito/flutter-action@v2
         with:
@@ -116,6 +116,12 @@ jobs:
             ~/.pub-cache
             .dart_tool
           key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.yaml') }}
+      - name: Get Flutter packages
+        run: flutter pub get
+      - name: Install CocoaPods
+        run: sudo gem install cocoapods
+      - name: Install Pods
+        run: cd ios && pod install && cd ..
       - name: Build iOS Debug 🍏
         run: flutter build ios --debug --no-codesign
   security-scan:

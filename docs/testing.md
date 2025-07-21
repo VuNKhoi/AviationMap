@@ -38,10 +38,10 @@ flutter test test/feature_map_test.dart
 
 ---
 ## Best Practices
-- Write tests for all new features and bug fixes.
-- Use descriptive test names and group related tests using `group()` for easier organization and running.
-- Mock dependencies and avoid real network/platform calls.
-- Fix all failed tests unless deprecated or integration-only.
+- Always write tests for new features and bug fixes to maintain code quality.
+- Use clear, descriptive test names and organize related tests with `group()` for better readability and maintenance.
+- Mock dependencies and avoid real network or platform calls to keep tests fast and reliable.
+- Address all failing tests promptly, unless they are deprecated or integration-only.
 
 ---
 See README.md and docs/testing.md for more details.
