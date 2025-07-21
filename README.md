@@ -1,7 +1,7 @@
-# Aviation Map: ForeFlight-Style Flutter Aviation App
+# Aviation Map: Modern Flutter Aviation App
 
 ## Overview
-Aviation Map is a modular, testable Flutter application inspired by Boeing ForeFlight, designed for pilots and aviation enthusiasts. The app is built with a clean architecture, open access (no authentication), and a future-proof mapping strategy that starts with flutter_map and migrates to MapLibre for full control and open-source flexibility.
+Aviation Map is a modular, testable Flutter application designed for pilots and aviation enthusiasts. The app is built with a clean architecture, open access (no authentication), and a future-proof mapping strategy that starts with flutter_map and migrates to MapLibre for full control and open-source flexibility.
 
 ## Architecture & Philosophy
 - **Splash screen flow**: The app launches with a splash screen before transitioning to the main map view. This provides a branded loading experience and prepares resources for the map.
