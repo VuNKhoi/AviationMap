@@ -47,6 +47,8 @@ jobs:
             ~/.pub-cache
             .dart_tool
           key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.yaml') }}
+      - name: Install lcov
+        run: brew install lcov
       - name: Run tests 🧪
         run: flutter test --coverage
       - name: Upload coverage report 📊
