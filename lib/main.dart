@@ -33,9 +33,11 @@ class _SplashToMapState extends State<SplashToMap> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 2), () {
-      Navigator.of(
-        context,
-      ).pushReplacement(MaterialPageRoute(builder: (_) => const MapScreen()));
+      if (mounted) {
+        Navigator.of(
+          context,
+        ).pushReplacement(MaterialPageRoute(builder: (_) => const MapScreen()));
+      }
     });
   }
 

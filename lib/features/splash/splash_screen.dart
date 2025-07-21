@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -8,16 +9,21 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  Timer? _timer;
+
   @override
   void initState() {
     super.initState();
-    _setupApp();
+    _timer = Timer(const Duration(seconds: 2), () {
+      // Navigation handled by parent (SplashToMap)
+      // Add setup logic here if needed
+    });
   }
 
-  Future<void> _setupApp() async {
-    // TODO: Add setup logic here (e.g., load config, check permissions, initialize services)
-    await Future.delayed(const Duration(seconds: 2));
-    // Navigation handled by parent (SplashToMap)
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 
   @override

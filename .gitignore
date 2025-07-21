@@ -1,4 +1,5 @@
-coverage/lcov.info# Miscellaneous
+coverage/lcov.info
+# Miscellaneous
 *.class
 *.log
 *.pyc
