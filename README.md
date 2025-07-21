@@ -5,7 +5,7 @@ Aviation Map is a modular, testable Flutter application inspired by Boeing ForeF
 
 ## Architecture & Philosophy
 - **Splash screen flow**: The app launches with a splash screen before transitioning to the main map view. This provides a branded loading experience and prepares resources for the map.
-- **Feature-based folder structure**: Code is organized by feature (e.g., `features/home/`), with shared widgets and utilities in dedicated folders.
+**Feature-based folder structure**: Code is organized by feature (e.g., `features/map/`, `features/splash/`), with shared widgets and utilities in dedicated folders.
 - **Separation of concerns**: UI, business logic, and data access are separated using Riverpod providers, repositories, and notifiers.
 - **Reusable widgets**: Common UI elements (fields, banners, buttons) are extracted for maintainability and testability.
 - **Centralized constants and theming**: All keys, labels, error messages, routes, and styles are defined in `constants.dart` and `theme.dart` for consistency and easy updates.
@@ -68,7 +68,7 @@ lib/
     map/
       map_screen.dart
     // No auth feature folder (fully open app)
-    home/
+    // home/ (not used, splash and map are entry points)
     ...
   widgets/
   services/

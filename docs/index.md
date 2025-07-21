@@ -13,7 +13,6 @@ Welcome to the documentation hub for AviationMap. Below you'll find links and su
 
 ## Features
 - [Map Feature](./feature_map.md): Map overlays, user location, and extensibility.
-- [Home Feature](./feature_home.md): Main app screen, navigation, and integration.
 - [Options Feature](./feature_options.md): Option bubble/grid for quick actions.
 
 ## Integrations & Pipelines

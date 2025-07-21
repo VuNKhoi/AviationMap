@@ -36,7 +36,7 @@ AviationMap is architected for maintainability, testability, and scalability, fo
 - Skipping tests for new features
 - Hardcoding secrets or config in code
 
-- `lib/features/` — Feature-based folders (auth, map, home, options, etc.)
+- `lib/features/` — Feature-based folders (map, splash, options, etc.)
 - `lib/core/` — Shared core utilities, base classes, and abstractions
 - `lib/constants.dart` — App-wide constants
 - `lib/widgets/` — Shared UI widgets
@@ -67,7 +67,6 @@ Each feature folder contains:
 
 See the following docs for detailed explanations and rationale for each feature:
 - [Map Feature](./feature_map.md)
-- [Home Feature](./feature_home.md)
 - [Options Feature](./feature_options.md)
 
 ---

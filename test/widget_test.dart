@@ -13,18 +13,21 @@ import 'package:aviationmap/features/splash/splash_screen.dart';
 import 'package:aviationmap/features/map/map_screen.dart';
 
 void main() {
-  testWidgets('Splash screen displays and transitions to map', (WidgetTester tester) async {
-    // Build the AviationMap app and trigger a frame.
+  testWidgets('Splash screen displays, runs setup, and transitions to map', (
+    WidgetTester tester,
+  ) async {
     await tester.pumpWidget(const AviationMapApp());
 
-    // Verify that the splash screen is shown.
+    // Splash screen should be visible initially
     expect(find.byType(SplashScreen), findsOneWidget);
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+    expect(find.text('AviationMap'), findsOneWidget);
 
-    // Wait for the splash duration and transition.
+    // Wait for setup and navigation
     await tester.pump(const Duration(seconds: 2));
     await tester.pumpAndSettle();
 
-    // Verify that the map screen is shown after splash.
+    // Map screen should be visible after splash
     expect(find.byType(MapScreen), findsOneWidget);
   });
 }

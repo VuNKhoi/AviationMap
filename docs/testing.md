@@ -10,6 +10,9 @@ This document details the testing philosophy, coverage, and CI/CD integration fo
 
 ## Structure
 - `test/`: Mirrors `lib/` for unit and widget tests.
+  - `test/features/`: Feature-specific widget/unit tests.
+  - `test/widgets/`: Shared widget tests.
+  - `test/services/`: Service/repository tests.
 - `integration_test/`: End-to-end integration tests.
 
 ## CI/CD Integration
@@ -30,8 +33,15 @@ flutter test test/feature_map_test.dart
 - For integration tests, use the `integration_test/` folder and follow Flutter's integration test setup.
 
 ## Coverage
-- Run coverage locally with `flutter test --coverage`.
-- Review coverage reports to identify gaps and improve test quality.
+- All critical flows, error handling, and UI states should be covered.
+- Use coverage tools (e.g., `flutter test --coverage`) to monitor and improve coverage.
 
 ---
-Add more testing notes and examples as the project evolves.
+## Best Practices
+- Write tests for all new features and bug fixes.
+- Use descriptive test names and group related tests using `group()` for easier organization and running.
+- Mock dependencies and avoid real network/platform calls.
+- Fix all failed tests unless deprecated or integration-only.
+
+---
+See README.md and docs/testing.md for more details.
