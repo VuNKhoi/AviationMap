@@ -103,6 +103,8 @@ jobs:
     steps:
       - name: Checkout code 📦
         uses: actions/checkout@v4
+      - name: Print directory tree for debugging
+        run: find . | head -1000
       - name: Set up Flutter 💙
         uses: subosito/flutter-action@v2
         with:
