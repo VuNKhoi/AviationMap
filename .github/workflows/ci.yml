@@ -1,10 +1,13 @@
 name: AviationMap CI 🚀
 
 # 🚦 AviationMap CI runs on every PR!
+
+# 🚦 AviationMap CI runs on every PR and can be triggered manually!
 on:
   pull_request:
     branches:
       - '*'
+  workflow_dispatch:
 
 jobs:
   lint:
