@@ -4,6 +4,7 @@
 Aviation Map is a modular, testable Flutter application inspired by Boeing ForeFlight, designed for pilots and aviation enthusiasts. The app is built with a clean architecture, open access (no authentication), and a future-proof mapping strategy that starts with flutter_map and migrates to MapLibre for full control and open-source flexibility.
 
 ## Architecture & Philosophy
+- **Splash screen flow**: The app launches with a splash screen before transitioning to the main map view. This provides a branded loading experience and prepares resources for the map.
 - **Feature-based folder structure**: Code is organized by feature (e.g., `features/home/`), with shared widgets and utilities in dedicated folders.
 - **Separation of concerns**: UI, business logic, and data access are separated using Riverpod providers, repositories, and notifiers.
 - **Reusable widgets**: Common UI elements (fields, banners, buttons) are extracted for maintainability and testability.
@@ -62,10 +63,11 @@ lib/
   app.dart
   main.dart
   features/
-    auth/
-      application/
-      presentation/
-      repositories/
+    splash/
+      splash_screen.dart
+    map/
+      map_screen.dart
+    // No auth feature folder (fully open app)
     home/
     ...
   widgets/
@@ -77,8 +79,8 @@ integration_test/
 ```
 
 ## Testing
-- **Widget and unit tests**: All reusable widgets and flows are tested.
-- **Integration tests**: Google Sign-In and navigation flows are covered.
+- **Widget and unit tests**: All reusable widgets and flows are tested, including splash screen and navigation transitions.
+- **Integration tests**: Navigation flows (e.g., splash to map) are covered.
 - **Test helpers**: Common test setup and mocks are provided in `test_helpers.dart`.
 
 ## Future Plans

@@ -5,7 +5,7 @@ This document details the testing philosophy, coverage, and CI/CD integration fo
 ## Principles
 - All business logic is covered by unit tests.
 - All UI widgets are covered by widget tests with provider overrides and fake services.
-- Integration tests cover critical flows (map overlays, user location, options, etc.).
+- Integration tests cover critical flows (map overlays, user location, options, splash-to-map navigation, etc.).
 - No tests depend on real network or platform APIs; all dependencies are injected and mockable.
 
 ## Structure
@@ -26,6 +26,7 @@ flutter test test/feature_map_test.dart
 ## How to Add Tests
 - Add new tests in the corresponding feature folder under `test/`.
 - Use provider overrides and fake services for deterministic results.
+- Test that splash screen displays on launch and transitions to map screen after delay.
 - For integration tests, use the `integration_test/` folder and follow Flutter's integration test setup.
 
 ## Coverage
