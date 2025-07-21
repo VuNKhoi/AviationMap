@@ -11,28 +11,33 @@ This document provides a detailed, step-by-step checklist for migrating the Ligh
 - [x] Update README.md to reflect Aviation Map’s goals, architecture, and naming.
 
 ## 2. Folder Structure & Organization
-- [ ] Mirror LightOre’s feature-based folder structure in Aviation Map:
-    - lib/features/
-    - lib/core/
-    - lib/widgets/
-    - lib/constants.dart
-    - test/
-    - integration_test/
-- [ ] Remove or archive any deprecated, unused, or experimental folders/files from LightOre.
-- [ ] Update all package imports to use `aviation_map` instead of `lightore`.
+- [x] Mirror LightOre’s feature-based folder structure in Aviation Map:
+    - [x] lib/features/
+    - [x] lib/core/
+    - [x] lib/widgets/
+    - [x] lib/constants.dart
+    - [x] test/
+    - [x] integration_test/
+- [ ] Migrate features one at a time from LightOre to Aviation Map:
+    - [ ] For each feature:
+        - [ ] Move the feature’s code and related files to Aviation Map.
+        - [ ] Refactor imports, namespaces, and references to use `aviation_map`.
+        - [ ] Remove or archive any deprecated, unused, or experimental code for that feature.
+        - [ ] Test the feature in Aviation Map to ensure it works as expected before proceeding to the next feature.
+        - [ ] Document migration notes and any architectural changes for each feature.
 
-## 3. Codebase Migration
-- [ ] Copy all relevant Dart source files from LightOre to Aviation Map, preserving feature-based organization.
-- [ ] Rename all references, comments, and documentation from LightOre to Aviation Map.
-- [ ] Update package names, identifiers, and namespaces in pubspec.yaml and throughout the codebase.
-- [ ] Migrate and update all constants, theming, and configuration files.
-- [ ] Review and refactor any code that is tightly coupled to LightOre-specific logic or branding.
++ ## 3. Codebase Migration
++ - [ ] For each feature in LightOre:
++     - [ ] Review the feature’s code and tests for relevance and quality.
++     - [ ] Copy the Dart source files to Aviation Map, preserving feature-based organization.
++     - [ ] Rename all references, comments, and documentation from LightOre to Aviation Map.
++     - [ ] Update package names, identifiers, and namespaces in pubspec.yaml and throughout the codebase.
++     - [ ] Migrate and update all constants, theming, and configuration files.
++     - [ ] Refactor code to follow Aviation Map’s architecture and best practices.
++     - [ ] Remove any deprecated, unused, or experimental code for that feature.
++     - [ ] Test the feature in Aviation Map to ensure it works as expected.
++     - [ ] Document migration notes and any architectural changes for each feature.
 
-## 4. Authentication & Security
-- [ ] Migrate Firebase configuration files and update for Aviation Map (firebase_options.dart, GoogleService-Info.plist, google-services.json).
-- [ ] Register Aviation Map with Firebase Console and update project settings.
-- [ ] Update authentication flows, error handling, and banners to reflect Aviation Map branding and requirements.
-- [ ] Remove any hardcoded secrets or API keys; use environment variables or secure storage.
 
 ## 5. Mapping & Overlays
 - [ ] Migrate all map-related code, including BaseMapView, overlay logic, and tile providers.

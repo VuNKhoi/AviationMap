@@ -11,6 +11,25 @@ AviationMap is architected for maintainability, testability, and scalability, fo
 
 ## Project Structure
 
+| Folder | Purpose |
+|--------|---------|
+| lib/features/ | Feature-based code (map, home, options, etc.) |
+| lib/core/ | Shared utilities, base classes |
+| lib/constants.dart | App-wide constants |
+| lib/widgets/ | Shared UI widgets |
+| test/ | Unit/widget tests |
+| docs/ | Documentation |
+
+## Style Guide & Code Review
+- Follow the official [Dart Style Guide](https://dart.dev/guides/language/effective-dart/style)
+- Use the [Flutter Code Review Checklist](https://github.com/flutter/flutter/wiki/Style-guide-for-Flutter-repo)
+
+## Common Pitfalls & Anti-Patterns
+- Mixing business logic into UI widgets (keep UI-only)
+- Not injecting dependencies (use providers/services)
+- Skipping tests for new features
+- Hardcoding secrets or config in code
+
 - `lib/features/` — Feature-based folders (auth, map, home, options, etc.)
 - `lib/core/` — Shared core utilities, base classes, and abstractions
 - `lib/constants.dart` — App-wide constants
@@ -41,7 +60,6 @@ Each feature folder contains:
 # Feature Documentation
 
 See the following docs for detailed explanations and rationale for each feature:
-- [Auth Feature](./feature_auth.md)
 - [Map Feature](./feature_map.md)
 - [Home Feature](./feature_home.md)
 - [Options Feature](./feature_options.md)

@@ -1,21 +1,20 @@
 # Aviation Map: ForeFlight-Style Flutter Aviation App
 
 ## Overview
-Aviation Map is a modular, testable Flutter application inspired by Boeing ForeFlight, designed for pilots and aviation enthusiasts. The app is built with a clean architecture, robust authentication (including Google Sign-In and Firebase), and a future-proof mapping strategy that starts with flutter_map and migrates to MapLibre for full control and open-source flexibility.
+Aviation Map is a modular, testable Flutter application inspired by Boeing ForeFlight, designed for pilots and aviation enthusiasts. The app is built with a clean architecture, open access (no authentication), and a future-proof mapping strategy that starts with flutter_map and migrates to MapLibre for full control and open-source flexibility.
 
 ## Architecture & Philosophy
-- **Feature-based folder structure**: Code is organized by feature (e.g., `features/auth/`, `features/home/`), with shared widgets and utilities in dedicated folders.
+- **Feature-based folder structure**: Code is organized by feature (e.g., `features/home/`), with shared widgets and utilities in dedicated folders.
 - **Separation of concerns**: UI, business logic, and data access are separated using Riverpod providers, repositories, and notifiers.
 - **Reusable widgets**: Common UI elements (fields, banners, buttons) are extracted for maintainability and testability.
 - **Centralized constants and theming**: All keys, labels, error messages, routes, and styles are defined in `constants.dart` and `theme.dart` for consistency and easy updates.
-- **Comprehensive testing**: Widget and integration tests cover all critical flows, including authentication and error handling.
+- **Comprehensive testing**: Widget and integration tests cover all critical flows and error handling.
 - **Map abstraction**: All map-related code is wrapped in a single widget/service layer (e.g., `BaseMapView`) to enable seamless migration from flutter_map to MapLibre.
 - **UI Compactness Principle**: All option menus, popups, and overlays are designed to be as compact and unobtrusive as possible, ensuring maximum map visibility and a focused user experience at all times.
 
 ## Authentication
-- **Email/password and Google Sign-In** using Firebase Auth.
-- **Error handling**: All errors are mapped to user-friendly messages and displayed via reusable banners.
-- **Test coverage**: All widgets and flows are covered by unit and widget tests.
+## No Authentication
+Aviation Map is fully open and free to use. No login, registration, or authentication is required. All features are available to every user.
 
 ## Mapping Strategy
 ### Phase 1: flutter_map Integration (MVP)

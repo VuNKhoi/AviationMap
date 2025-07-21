@@ -1,5 +1,14 @@
 # TODOs for AviationMap
 
+## Clean Code Principles
+- Follow SOLID principles, feature-based structure, and testability
+- No secrets or sensitive info in code or docs
+- Maintain readable, organized, and well-documented code
+
+## Code Review & Refactoring
+- [ ] Schedule regular code reviews to maintain quality
+- [ ] Refactor code as needed to improve clarity and reduce technical debt
+
 ## Map Stability (iOS & Android)
 - [ ] Ensure all overlays display correctly:
   - [ ] Sectional
@@ -42,12 +51,20 @@
 
 - [ ] Add workflow to run all appropriate tests and create all debug builds (Android, iOS, Web if applicable)
 
+## Documentation TODOs
+- [ ] Update docs as features evolve
+- [ ] Improve onboarding notes and diagrams
+- [ ] Add/expand technical guides as needed
+
+## MapLibre Migration Review
+- [ ] Review migration status and update [docs/maplibre_migration.md](maplibre_migration.md)
+- [ ] Validate overlays and tile caching after migration
+
+## FAA Chart Pipeline Review
+- [ ] Periodically review FAA chart pipeline and overlay accuracy
+
 ## Web Support (after mobile is stable)
-- [ ] Register Firebase Auth for Web
-  - Run `flutterfire configure --platforms=web` and follow the prompts
-- [ ] Update `firebase_options.dart` for web
-- [ ] Test all flows on web (Chrome, Safari, Edge)
-- [ ] Fix any web-specific issues (UI, permissions, etc.)
+// Add web-specific TODOs here after mobile is stable
 
 ---
 Add more TODOs below as needed.

@@ -1,0 +1,1 @@
+// Aviation Map global constants
