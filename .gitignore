@@ -11,6 +11,8 @@
 .svn/
 .swiftpm/
 coverage/lcov.info
+coverage/summary.txt
+coverage/html/
 migrate_working_dir/
 
 # Archive directory
