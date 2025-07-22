@@ -49,8 +49,9 @@ app.*.map.json
 **/flutter_export_environment.sh
 
 # iOS
-ios/Flutter/*.xcconfig
+# Only ignore generated and ephemeral xcconfig files, not Debug.xcconfig or Release.xcconfig
 ios/Flutter/Generated.xcconfig
+ios/Flutter/ephemeral/
 ios/Flutter/flutter_export_environment.sh
 ios/Pods/
 ios/.symlinks/
