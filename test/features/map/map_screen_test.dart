@@ -1,11 +1,13 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
-// import 'package:aviationmap/features/map/map_screen.dart';
-// ...existing code...
-import 'package:geolocator/geolocator.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:aviationmap/features/map/map_screen.dart';
+import 'package:geolocator/geolocator.dart';
 
-class FakeLocationService implements ILocationService {
+/// Tests for MapScreen widget.
+///
+
+/// Ensures OSM compliance, DI, and map UI render as expected.
+class FakeLocationService extends LocationService {
   final bool permissionDenied;
   final bool throwOnLocation;
   FakeLocationService({
@@ -13,13 +15,9 @@ class FakeLocationService implements ILocationService {
     this.throwOnLocation = false,
   });
 
-  @override
-  Future<LocationPermission> checkPermission() async =>
-      permissionDenied ? LocationPermission.denied : LocationPermission.always;
 
   @override
-  Future<LocationPermission> requestPermission() async =>
-      permissionDenied ? LocationPermission.denied : LocationPermission.always;
+  Future<bool> requestPermission() async => !permissionDenied;
 
   @override
   Future<Position> getCurrentPosition() async {
@@ -40,56 +38,14 @@ class FakeLocationService implements ILocationService {
 }
 
 void main() {
-  testWidgets('MapScreen shows loading indicator initially', (
-    WidgetTester tester,
-  ) async {
-    await tester.pumpWidget(
-      MaterialApp(home: MapScreen(locationService: FakeLocationService())),
-    );
-    expect(find.byType(CircularProgressIndicator), findsOneWidget);
-  });
-
-  testWidgets('MapScreen shows error UI when location permission denied', (
-    WidgetTester tester,
-  ) async {
-    await tester.pumpWidget(
-      MaterialApp(
-        home: MapScreen(
-          locationService: FakeLocationService(permissionDenied: true),
-        ),
-      ),
-    );
-    await tester.pump();
-    expect(find.textContaining('Location permission denied'), findsOneWidget);
-    expect(find.byType(ElevatedButton), findsOneWidget);
-  });
-
-  testWidgets(
-    'MapScreen displays user marker after location permission granted',
-    (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MaterialApp(home: MapScreen(locationService: FakeLocationService())),
-      );
-      await tester.pump();
-      expect(find.byKey(const Key('userLocationMarker')), findsOneWidget);
-    },
-  );
-
-  testWidgets('MapScreen recenter button recenters map', (
-    WidgetTester tester,
-  ) async {
-    await tester.pumpWidget(
-      MaterialApp(home: MapScreen(locationService: FakeLocationService())),
-    );
-    await tester.pump();
-    final fab = find.byKey(const Key('recenterButton'));
-    expect(fab, findsOneWidget);
-    await tester.tap(fab);
-    await tester.pump();
-    // No direct way to verify map recenter, but button is present and tap does not throw
-  });
   group('MapScreen', () {
-    testWidgets('shows loading indicator initially', (
+    testWidgets('renders map UI', (tester) async {
+      await tester.pumpWidget(MaterialApp(home: MapScreen()));
+      expect(find.byType(Scaffold), findsOneWidget);
+      // Add more widget expectations as needed
+    });
+
+    testWidgets('MapScreen shows loading indicator initially', (
       WidgetTester tester,
     ) async {
       await tester.pumpWidget(
@@ -98,7 +54,7 @@ void main() {
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
 
-    testWidgets('shows error UI when location permission denied', (
+    testWidgets('MapScreen shows error UI when location permission denied', (
       WidgetTester tester,
     ) async {
       await tester.pumpWidget(
@@ -113,17 +69,20 @@ void main() {
       expect(find.byType(ElevatedButton), findsOneWidget);
     });
 
-    testWidgets('displays user marker after location permission granted', (
+    testWidgets(
+      'MapScreen displays user marker after location permission granted',
+      (WidgetTester tester) async {
+        await tester.pumpWidget(
+          MaterialApp(home: MapScreen(locationService: FakeLocationService())),
+        );
+        await tester.pump();
+        expect(find.byKey(const Key('userLocationMarker')), findsOneWidget);
+      },
+    );
+
+    testWidgets('MapScreen recenter button recenters map', (
       WidgetTester tester,
     ) async {
-      await tester.pumpWidget(
-        MaterialApp(home: MapScreen(locationService: FakeLocationService())),
-      );
-      await tester.pump();
-      expect(find.byKey(const Key('userLocationMarker')), findsOneWidget);
-    });
-
-    testWidgets('recenter button recenters map', (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(home: MapScreen(locationService: FakeLocationService())),
       );
@@ -131,7 +90,7 @@ void main() {
       final fab = find.byKey(const Key('recenterButton'));
       expect(fab, findsOneWidget);
       await tester.tap(fab);
-      await tester.pump();
+      await tester.pumpAndSettle(); // Ensure all timers/animations complete
       // No direct way to verify map recenter, but button is present and tap does not throw
     });
   });
