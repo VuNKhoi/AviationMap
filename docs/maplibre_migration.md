@@ -1,24 +1,22 @@
+
 # MapLibre Migration Status & Guide
 
-This document tracks the migration from flutter_map to MapLibre, including technical details, challenges, and progress.
+This document tracks the plan and readiness for migrating from flutter_map to MapLibre.
 
 ## Why Migrate to MapLibre?
 - Full open-source control and flexibility
 - Advanced features (vector tiles, 3D terrain, custom styles)
 - No vendor lock-in, scalable for future needs
 
-## Migration Steps
-1. Abstract all map logic behind `BaseMapView` and service layer
-2. Implement MapLibre wrapper and platform channels as needed
-3. Migrate overlays, markers, and user location logic
-4. Test all overlays and map features for compatibility
-5. Update documentation and onboarding notes
+## Migration Readiness
+- All map logic is being abstracted behind `BaseMapView` and a service layer.
+- Overlay logic is modular and ready for engine swap.
+- Testing and validation are ongoing to ensure compatibility.
 
-## Current Status
-- [ ] flutter_map is used for MVP
-- [ ] MapLibre wrapper is in development
-- [ ] Overlay logic is abstracted and ready for migration
-- [ ] Testing and validation in progress
+## Next Steps
+- Complete BaseMapView abstraction.
+- Implement MapLibre wrapper and test overlays, markers, and user location.
+- Update documentation and onboarding notes as migration progresses.
 
 ## Technical Challenges
 - Platform channel integration for advanced features

@@ -1,83 +1,53 @@
+
 # FAA Tile Converter Integration Guide
 
-This document details how to use and interact with the [FAATileConverter](https://github.com/VuNKhoi/FAATileConverter) pipeline for AviationMap, including technical details, workflow, and integration steps.
+This guide explains how the [FAATileConverter](https://github.com/VuNKhoi/FAATileConverter) pipeline powers AviationMap’s FAA chart overlays.
 
----
+## What the Pipeline Does
+- Downloads latest FAA charts (VFR Sectional, Terminal Area, IFR Low/High)
+- Converts GeoTIFFs to XYZ raster tiles using GDAL
+- Uploads tiles to S3 with long-term cache headers
+- Maintains metadata (e.g., faa_chart_log.json) for versioning
+- Includes E2E/unit tests and S3 cleanup workflow
 
-## What FAATileConverter Does
-- **Automates FAA chart processing:** Downloads latest VFR Sectional, Terminal Area, and IFR Low/High charts.
-- **Organizes charts:** Stores downloads in `downloads/sectional/`, `downloads/ifr_low/`, `downloads/ifr_high/`.
-- **Converts GeoTIFFs to XYZ raster tiles:** Uses GDAL, handles paletted TIFFs automatically.
-- **Uploads tiles to S3:** With cache-control headers for efficient client caching.
-- **Notifies by email on completion.**
-- **Includes E2E and unit tests for reliability.**
-- **Provides S3 cleanup workflow.**
+## Workflow
+1. **Download:**
+   - `python scripts/download_faa_charts.py --check-current` (fetches new/updated charts)
+2. **Convert:**
+   - `python scripts/convert_faa_charts.py` (GeoTIFF → XYZ tiles)
+3. **Upload:**
+   - Tiles uploaded to S3 with proper cache-control
+4. **Test:**
+   - Run unit/E2E tests to validate conversion and upload
+5. **Cleanup:**
+   - Manual workflow deletes S3 test bucket objects
 
----
-
-## Technical Workflow
-1. **Download Step:**
-   - Run `python scripts/download_faa_charts.py --check-current` to fetch new/updated charts only.
-   - Charts are unzipped and stored in organized folders.
-2. **Convert Step:**
-   - Run `python scripts/convert_faa_charts.py` to convert all GeoTIFFs to tiles.
-   - Handles paletted TIFFs, converts to RGBA as needed.
-3. **Upload Step:**
-   - Tiles are uploaded to S3 with `--cache-control "public, max-age=31536000, immutable"` for long-term caching.
-   - Minimal E2E test skips cache-control for CI.
-4. **Notification:**
-   - Email sent on job completion (see workflow config).
-5. **Testing:**
-   - Run unit tests: `python scripts/test_faa_chart_conversion.py`, `python scripts/test_faa_chart_extraction.py`
-   - E2E tests validate pipeline and S3 upload logic.
-6. **Cleanup:**
-   - Manual workflow deletes all objects in S3 test bucket.
-
----
-
-## Integration Steps for AviationMap
-1. **Set up S3 bucket:**
-   - Ensure you have an AWS S3 bucket for tile hosting.
-   - Configure credentials/secrets securely (never commit to repo).
-2. **Configure FAATileConverter:**
-   - Update S3 bucket details in workflow/scripts.
-   - (Optional) Set up email notification.
-3. **Run the pipeline:**
-   - Use GitHub Actions for scheduled/manual runs, or run scripts locally for development.
-   - Validate output tiles in S3.
-4. **Update AviationMap overlay URLs:**
-   - Point `BaseMapView` overlays to your S3 tile URLs (e.g., `https://your-bucket/sectional/{z}/{x}/{y}.png`).
-   - Test overlays in the app for correct display and performance.
-5. **Monitor and maintain:**
-   - Use E2E/unit tests to ensure pipeline reliability.
-   - Trigger S3 cleanup workflow as needed.
-
----
+## Integrating with AviationMap
+1. **Set up S3 bucket** for tile hosting (secure credentials, never commit secrets)
+2. **Configure FAATileConverter** with your S3 details
+3. **Run the pipeline** (GitHub Actions or local)
+4. **Point AviationMap overlays** to your S3 tile URLs (e.g., `https://your-bucket/sectional/{z}/{x}/{y}.png`)
+5. **Test overlays** in the app for display and performance
+6. **Monitor and maintain** (use tests, update scripts as FAA changes)
 
 ## Troubleshooting
-- If conversion fails, check GDAL installation and TIFF format compatibility
-- For S3 upload issues, verify credentials and bucket permissions
-- For email notification errors, check workflow config and SMTP settings
+- Check GDAL install and TIFF compatibility for conversion errors
+- Verify S3 credentials and permissions for upload issues
+- Update scripts if FAA changes chart formats/URLs
 
-## Updating FAA Chart Sources
-- If FAA changes chart formats or URLs, update the download script and test conversion
-- Monitor FAA notices for chart updates
+## Support
+- Open issues at [FAATileConverter GitHub](https://github.com/VuNKhoi/FAATileConverter/issues)
 
-## Support & Issues
-- For pipeline support, open an issue at [FAATileConverter GitHub](https://github.com/VuNKhoi/FAATileConverter/issues)
-
-## Example Usage (Local)
+## Example Usage
 ```bash
-# Download charts (with current-check)
+# Download charts
 python scripts/download_faa_charts.py --check-current
-# Convert all GeoTIFFs to tiles
+# Convert to tiles
 python scripts/convert_faa_charts.py
-# Run unit tests
+# Run tests
 python scripts/test_faa_chart_conversion.py
 python scripts/test_faa_chart_extraction.py
 ```
-
----
 
 ## Notes & Recommendations
 - Only main VFR Sectional, Terminal Area, and IFR Low/High charts are processed by default.

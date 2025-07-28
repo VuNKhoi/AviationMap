@@ -1,43 +1,30 @@
 
-# Map Feature
+# Map Feature Documentation
 
-## MapScreen Implementation (MVP)
+This document covers the map feature in AviationMap: overlays, user location, recentering, and extensibility.
 
-### Behavior
-- On startup, requests location permission using `geolocator`.
-- Shows a loading indicator while waiting for permission and location.
-- If permission is denied, displays an error message and disables map features.
-- If permission is granted, centers the map on the user's location and displays a marker.
-- Uses OpenStreetMap tiles via `flutter_map` for the base map.
+## Overview
+- Uses flutter_map for MVP (BaseMapView abstraction in progress)
+- Supports FAA chart overlays (sectional, IFR low/high, terminal area)
+- User location and recentering
+- Modular, testable, and ready for future map engine swaps
 
-### Components
-- `MapScreen`: Stateful widget handling permission, location, and map display.
-- Location permission logic is handled in `initState` and a helper method.
-- User marker is shown using a blue location icon.
-- Error UI is shown for denied permission or location errors.
+## Architecture
+- Map logic is abstracted behind a view model and service layer
+- Location and permission logic is in LocationService
+- State is managed with Riverpod providers
+- UI is separated from business logic
 
-### Rationale
-- Keeping all map logic in `map_screen.dart` simplifies migration, testing, and onboarding.
-- Error handling and permission flow are explicit for reliability and user experience.
-- Modular design allows easy extension for overlays, options, and migration to MapLibre.
+## Extensibility
+- Overlays and layers are modular and can be extended
+- Map engine can be swapped by updating BaseMapView
 
-### Testing
-- Widget tests cover loading, permission denied, and marker display states.
-- Further tests can mock location and permission flows for full coverage.
+## References
+- See [architecture.md](../../../docs/architecture.md) for project structure
+- See [riverpod.md](../../../docs/riverpod.md) for state management patterns
 
-### Extending
-- Add overlays and quick actions via Option Grid.
-- Refactor map logic into abstractions (e.g., `BaseMapView`) for MapLibre migration.
-
-
-## Purpose
-Displays the main map, overlays, and user location.
-
-## Overlays & Map Types
-- Supports multiple map overlays: streetmap (default), FAA sectional, IFR low, IFR high.
-- Overlays are managed via the Option Grid and can be switched at runtime.
-- All overlay logic is abstracted behind the `MapOverlayType` enum and view models, making it easy to add or modify overlays.
-- The map can display the user's current GPS position as a marker, and supports panning, zooming, and overlay stacking.
+---
+Add new map feature notes and patterns here as the feature evolves.
 - Overlay data is sourced from open and authoritative sources (e.g., OpenAIP, FAA, Eurocontrol) and processed into XYZ raster tiles or GeoJSON as needed.
 
 ## Structure

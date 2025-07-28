@@ -4,7 +4,7 @@
 ## 1. Map MVP with flutter_map
 - [ ] Add `flutter_map` and `geolocator` dependencies.
 - [ ] Implement map screen in `map_screen.dart` (rationale: keeps feature logic together, easier to refactor for migration).
-  - Why not a new file? Keeping all map logic in one place simplifies migration, testing, and onboarding. New files can be added for abstractions later.
+  - Keeping all map logic in one place simplifies testing and onboarding. New files can be added for abstractions later.
 - [ ] Request location permission on startup (use `geolocator`).
   - Checkpoint: Permission dialog appears, handles denied/allowed states.
   - Be aware: iOS/Android permission flows differ; test both.
@@ -81,11 +81,11 @@
 - [ ] Expand technical guides for overlays, map, and options.
   - Rationale: Ensures maintainability and easy onboarding.
 
-## 9. MapLibre Migration Prep
+## 9. Map Engine Abstraction
 - [ ] Abstract all map logic behind `BaseMapView` and service layer.
-- [ ] Prepare for migration to MapLibre (vector tiles, advanced overlays).
-- [ ] Document migration steps and update architecture docs.
-  - Checkpoint: Migration plan is clear; code is ready for switch.
+- [ ] Prepare for future map engine swaps (e.g., MapLibre, vector tiles, advanced overlays).
+- [ ] Document abstraction steps and update architecture docs.
+  - Checkpoint: Abstraction plan is clear; code is ready for engine switch.
 
 ## 10. FAA Chart Pipeline Review
 - [ ] Periodically review FAA chart pipeline and overlay accuracy.
@@ -95,4 +95,4 @@
 
 ---
 **Rationale:**
-This roadmap ensures modular, testable, and maintainable code. Each checkpoint is designed to catch issues early, improve UX, and make future migration (to MapLibre) seamless. Documenting rationale and things to be aware of helps onboard new contributors and avoid common pitfalls.
+This roadmap ensures modular, testable, and maintainable code. Each checkpoint is designed to catch issues early, improve UX, and make future engine swaps seamless. Documenting rationale and things to be aware of helps onboard new contributors and avoid common pitfalls.

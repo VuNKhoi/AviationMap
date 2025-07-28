@@ -1,6 +1,7 @@
+
 # AviationMap Testing Strategy
 
-This document details the testing philosophy, coverage, and CI/CD integration for AviationMap.
+This document details the testing philosophy, structure, and CI/CD integration for AviationMap. See [architecture.md](architecture.md) for project structure and principles.
 
 ## Principles
 - All business logic is covered by unit tests.
@@ -8,7 +9,7 @@ This document details the testing philosophy, coverage, and CI/CD integration fo
 - Integration tests cover critical flows (map overlays, user location, options, splash-to-map navigation, etc.).
 - No tests depend on real network or platform APIs; all dependencies are injected and mockable.
 
-## Structure
+## Test Structure
 - `test/`: Mirrors `lib/` for unit and widget tests.
   - `test/features/`: Feature-specific widget/unit tests.
   - `test/widgets/`: Shared widget tests.
@@ -16,32 +17,28 @@ This document details the testing philosophy, coverage, and CI/CD integration fo
 - `integration_test/`: End-to-end integration tests.
 
 ## CI/CD Integration
-- GitHub Actions runs all tests on every push and pull request.
+- GitHub Actions runs all tests, lints, and coverage on every push and pull request.
 - Automated coverage reporting and linting are included in CI/CD workflows.
 
-## How to Run Tests
+## Running & Adding Tests
 ```bash
 flutter test
 flutter test test/widget_test.dart
 flutter test test/feature_map_test.dart
 ```
-
-## How to Add Tests
 - Add new tests in the corresponding feature folder under `test/`.
 - Use provider overrides and fake services for deterministic results.
-- Test that splash screen displays on launch and transitions to map screen after delay.
 - For integration tests, use the `integration_test/` folder and follow Flutter's integration test setup.
 
 ## Coverage
 - All critical flows, error handling, and UI states should be covered.
 - Use coverage tools (e.g., `flutter test --coverage`) to monitor and improve coverage.
 
----
 ## Best Practices
-- Always write tests for new features and bug fixes to maintain code quality.
-- Use clear, descriptive test names and organize related tests with `group()` for better readability and maintenance.
+- Always write tests for new features and bug fixes.
+- Use clear, descriptive test names and organize related tests with `group()` for readability.
 - Mock dependencies and avoid real network or platform calls to keep tests fast and reliable.
-- Address all failing tests promptly, unless they are deprecated or integration-only.
+- Address all failing tests promptly.
 
 ---
-See README.md and docs/testing.md for more details.
+See [README.md](../README.md) and [architecture.md](architecture.md) for more details.
