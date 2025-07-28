@@ -36,7 +36,8 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (viewModel.loading) {
+    // Show full-screen spinner only on initial load (no userLocation yet)
+    if (viewModel.loading && viewModel.userLocation == null) {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
     if (viewModel.error != null) {
@@ -57,35 +58,55 @@ class _MapScreenState extends State<MapScreen> {
       );
     }
     return Scaffold(
-      body: FlutterMap(
-        options: MapOptions(
-          initialCenter: viewModel.userLocation ?? const LatLng(0, 0),
-          initialZoom: 13,
-          interactionOptions: const InteractionOptions(
-            flags: InteractiveFlag.all,
-          ),
-        ),
+      body: Stack(
         children: [
-          TileLayer(
-            urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-            userAgentPackageName: 'com.example.aviationmap',
+          FlutterMap(
+            options: MapOptions(
+              initialCenter: viewModel.userLocation ?? const LatLng(0, 0),
+              initialZoom: 13,
+              interactionOptions: const InteractionOptions(
+                flags: InteractiveFlag.all,
+              ),
+            ),
+            children: [
+              TileLayer(
+                urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                userAgentPackageName: 'com.example.aviationmap',
+              ),
+              if (viewModel.userLocation != null)
+                MarkerLayer(
+                  markers: [
+                    Marker(
+                      point: viewModel.userLocation!,
+                      width: 40,
+                      height: 40,
+                      child: const Icon(
+                        Icons.my_location,
+                        color: Colors.blue,
+                        size: 36,
+                        semanticLabel: 'Your location',
+                        key: Key('userLocationMarker'),
+                      ),
+                    ),
+                  ],
+                ),
+            ],
           ),
-          if (viewModel.userLocation != null)
-            MarkerLayer(
-              markers: [
-                Marker(
-                  point: viewModel.userLocation!,
-                  width: 40,
-                  height: 40,
-                  child: const Icon(
-                    Icons.my_location,
-                    color: Colors.blue,
-                    size: 36,
-                    semanticLabel: 'Your location',
-                    key: Key('userLocationMarker'),
+          // Show a small loading overlay if recentering (not initial load)
+          if (viewModel.loading && viewModel.userLocation != null)
+            Positioned.fill(
+              child: IgnorePointer(
+                child: Container(
+                  color: Colors.black.withOpacity(0.2),
+                  child: const Center(
+                    child: SizedBox(
+                      width: 48,
+                      height: 48,
+                      child: CircularProgressIndicator(),
+                    ),
                   ),
                 ),
-              ],
+              ),
             ),
         ],
       ),
@@ -94,7 +115,16 @@ class _MapScreenState extends State<MapScreen> {
               key: const Key('recenterButton'),
               onPressed: viewModel.recenter,
               tooltip: 'Re-center map',
-              child: const Icon(Icons.my_location),
+              child: viewModel.loading && viewModel.userLocation != null
+                  ? const SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: CircularProgressIndicator(
+                        color: Colors.white,
+                        strokeWidth: 2.5,
+                      ),
+                    )
+                  : const Icon(Icons.my_location),
             )
           : null,
     );
