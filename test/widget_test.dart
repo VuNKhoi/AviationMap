@@ -9,25 +9,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:aviationmap/main.dart';
-import 'package:aviationmap/features/splash/splash_screen.dart';
-import 'package:aviationmap/features/map/map_screen.dart';
+import 'package:aviationmap/features/splash/widgets/splash_screen.dart';
+import 'package:aviationmap/features/map/widgets/map_screen.dart';
 
 void main() {
-  testWidgets('Splash screen displays, runs setup, and transitions to map', (
-    WidgetTester tester,
-  ) async {
-    await tester.pumpWidget(const AviationMapApp());
+  group('AviationMapApp', () {
+    testWidgets('Splash screen displays, runs setup, and transitions to map', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(const AviationMapApp());
 
-    // Splash screen should be visible initially
-    expect(find.byType(SplashScreen), findsOneWidget);
-    expect(find.byType(CircularProgressIndicator), findsOneWidget);
-    expect(find.text('AviationMap'), findsOneWidget);
+      // Splash screen should be visible initially
+      expect(find.byType(SplashScreen), findsOneWidget);
+      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+      expect(find.text('AviationMap'), findsOneWidget);
 
-    // Wait for setup and navigation
-    await tester.pump(const Duration(seconds: 2));
-    await tester.pumpAndSettle();
+      // Wait for setup and navigation
+      await tester.pump(const Duration(seconds: 2));
+      await tester.pumpAndSettle();
 
-    // Map screen should be visible after splash
-    expect(find.byType(MapScreen), findsOneWidget);
+      // After navigation, SplashScreen should be gone, MapScreen should be visible
+      expect(
+        find.byType(SplashScreen),
+        findsNothing,
+        reason: 'SplashScreen should be gone after navigation',
+      );
+      expect(
+        find.byType(MapScreen),
+        findsOneWidget,
+        reason: 'MapScreen should be visible after navigation',
+      );
+    });
   });
 }
