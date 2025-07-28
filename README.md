@@ -1,39 +1,56 @@
 # Aviation Map: Modern Flutter Aviation App
 
 ## Overview
-Aviation Map is a modular, testable Flutter application designed for pilots and aviation enthusiasts. The app is built with a clean architecture, open access (no authentication), and a future-proof mapping strategy that starts with flutter_map and migrates to MapLibre for full control and open-source flexibility.
-
-## Architecture & Philosophy
-- **Splash screen flow**: The app launches with a splash screen before transitioning to the main map view. This provides a branded loading experience and prepares resources for the map.
-**Feature-based folder structure**: Code is organized by feature (e.g., `features/map/`, `features/splash/`), with shared widgets and utilities in dedicated folders.
 - **Separation of concerns**: UI, business logic, and data access are separated using Riverpod providers, repositories, and notifiers.
 - **Reusable widgets**: Common UI elements (fields, banners, buttons) are extracted for maintainability and testability.
-- **Centralized constants and theming**: All keys, labels, error messages, routes, and styles are defined in `constants.dart` and `theme.dart` for consistency and easy updates.
-- **Comprehensive testing**: Widget and integration tests cover all critical flows and error handling.
-- **Map abstraction**: All map-related code is wrapped in a single widget/service layer (e.g., `BaseMapView`) to enable seamless migration from flutter_map to MapLibre.
-- **UI Compactness Principle**: All option menus, popups, and overlays are designed to be as compact and unobtrusive as possible, ensuring maximum map visibility and a focused user experience at all times.
 
-## Authentication
 ## No Authentication
 Aviation Map is fully open and free to use. No login, registration, or authentication is required. All features are available to every user.
+## Project & Documentation Structure
 
-## Mapping Strategy
-### Phase 1: flutter_map Integration (MVP)
-- Use the [flutter_map](https://pub.dev/packages/flutter_map) package for rapid MVP development.
-- FAA sectional charts are processed into XYZ raster tiles and displayed as a TileLayer overlay above the base map.
-- User's current GPS position is shown as a marker on the map.
-- User position tracking, panning, zoom, markers, and overlays are supported out of the box.
-- All map logic is abstracted behind a `BaseMapView` interface for future migration.
+### Codebase Organization
+```
+lib/
+  constants.dart
+  app.dart
+  main.dart
+  features/
+    splash/
+      index.md        # Feature documentation (Markdown)
+      splash_screen.dart
+    map/
+      index.md        # Feature documentation (Markdown)
+      map_screen.dart
+    options/
+      index.md        # Feature documentation (Markdown)
+      ...
+    ...
+  widgets/
+  services/
+  utils/
+test/
+integration_test/
+docs/
+  index.md           # Documentation hub
+  architecture.md    # Architecture and principles
+  todo.md            # Project TODOs
+  CONTRIBUTING.md    # Contribution guidelines
+  migration.md       # Migration guide
+  ...
+```
 
-### Phase 2: Migration to MapLibre
-- Replace flutter_map with a custom/community MapLibre wrapper for advanced features and open-source flexibility.
-- Migrate map code to use platform channels or the abstraction layer.
-- Host FAA charts and styles yourself (Cloudflare R2, S3, or self-hosted).
-- Implement offline tile caching and advanced overlays as needed.
-- No vendor lock-in, fully open-source, and cost-effective for scale.
+### Naming Conventions
+- Feature folders use singular names (e.g., `map`, `splash`, `options`).
+- Each feature folder contains an `index.md` for documentation and relevant Dart files for implementation.
+- Shared documentation is in the `docs/` folder, with links to feature docs.
+- All links in documentation point to the correct feature or doc location for consistency.
 
-## Long-Term Architecture
-- **Abstraction**: All map and FAA chart logic is decoupled from the rendering engine.
+### Documentation Practices
+- All features have their own `index.md` in their respective folders.
+- The main documentation index (`docs/index.md`) links to all features and core docs.
+- Documentation is updated as features evolve and new folders/files are added.
+
+This structure ensures clarity, maintainability, and easy onboarding for new contributors.
 - **Interoperability**: Tiles and styles are stored in open formats (XYZ raster, Style JSON v8).
 - **Dependency injection**: Map engine selection is configurable for easy migration.
 - **Offline-first**: The architecture anticipates offline support from the start.
@@ -82,6 +99,7 @@ integration_test/
 - **Widget and unit tests**: All reusable widgets and flows are tested, including splash screen and navigation transitions.
 - **Integration tests**: Navigation flows (e.g., splash to map) are covered.
 - **Test helpers**: Common test setup and mocks are provided in `test_helpers.dart`.
+- **Test grouping**: All tests in a file should be placed inside a `group()` for clarity, organization, and to ensure proper setup/teardown. This is a project convention for all test files.
 
 ## Future Plans
 - Complete flutter_map MVP and user testing.
@@ -98,7 +116,15 @@ integration_test/
 
 ---
 
+
 ## Architectural Principles: Decoupling & Maintainability
+
+- **Dependency Injection & Testability**: We follow the principle of **programming to an interface** (Dependency Inversion Principle, SOLID) and use **dependency injection** wherever possible. This means:
+  - All platform-dependent or side-effectful logic (e.g., location, permissions, storage, network) should be abstracted behind interfaces.
+  - UI and business logic depend only on abstractions, not concrete implementations.
+  - In production, real implementations are injected; in tests, mocks/fakes are injected for full control and reliability.
+  - **Benefits:** Makes code easy to test, maintain, and extend. Decouples UI from platform details. Enables robust widget and unit testing.
+  - **Guideline:** When adding new features or platform logic, always consider introducing an interface and injecting it, rather than calling platform APIs directly in widgets or business logic.
 
 - **Routing and Auth Decoupling**: Routing logic should not directly depend on authentication providers. Use navigation guards, services, or event-based patterns to handle redirects and access control.
 - **Screen Construction**: Route definitions should use factories or builders for screen creation, not direct instantiation. This enables dependency injection and easier refactoring.

@@ -1,70 +1,82 @@
-# TODOs for AviationMap
 
-## Clean Code Principles
-- Follow SOLID principles, feature-based structure, and testability
-- No secrets or sensitive info in code or docs
-- Maintain readable, organized, and well-documented code
+# TODOs for AviationMap (Detailed Roadmap)
 
-## Code Review & Refactoring
-- [ ] Schedule regular code reviews to maintain quality
-- [ ] Refactor code as needed to improve clarity and reduce technical debt
+## 1. Map MVP with flutter_map
+- [ ] Add `flutter_map` and `geolocator` dependencies.
+- [ ] Implement map screen in `map_screen.dart` (rationale: keeps feature logic together, easier to refactor for migration).
+  - Why not a new file? Keeping all map logic in one place simplifies migration, testing, and onboarding. New files can be added for abstractions later.
+- [ ] Request location permission on startup (use `geolocator`).
+  - Checkpoint: Permission dialog appears, handles denied/allowed states.
+  - Be aware: iOS/Android permission flows differ; test both.
+- [ ] Center map on user’s current location after permission is granted.
+  - Rationale: Improves UX for pilots; map is immediately relevant.
+- [ ] Add floating action button to re-center map on user’s location.
+  - Checkpoint: Button is visible, works after permission granted.
+- [ ] Display user’s location as a marker on the map.
+  - Be aware: Location updates, marker accuracy, and error handling.
+- [ ] Handle permission denied and location errors gracefully (show error UI).
+  - Rationale: Avoids confusion, improves reliability.
+- [ ] Add basic unit and widget tests for map and location flows.
+  - Checkpoint: Tests pass for permission, location, and UI states.
 
-## Map Stability (iOS & Android)
-- [ ] Ensure all overlays display correctly:
-  - [ ] Sectional
-  - [ ] IFR Low
-  - [ ] IFR High
-- [ ] Test overlays on real devices and emulators (various screen sizes)
-- [ ] Fix any crashes, glitches, or missing tiles
-- [ ] Validate tile caching and fallback logic
-- [ ] Document tile server URLs and overlay configuration in code/docs
+## 2. Option Bubble & Grid
+- [ ] Implement Option Bubble (floating button) to open Option Grid.
+- [ ] Add quick actions to Option Grid (e.g., switch overlays, center map).
+- [ ] Pass actions via parameters/providers for testability.
+- [ ] Add widget tests for Option Bubble/Grid.
+  - Rationale: Modular, testable UI; easy to extend.
 
-## Security
-- [ ] Remove all secrets (API keys, service files) from the repo and logs
-- [ ] Store secrets in environment variables or GitHub Actions secrets
-- [ ] Add CI/CD steps to write secrets to files at build time (see workflow example)
-- [ ] Review all code and docs for accidental secret exposure
-- [ ] Add .gitignore rules for secrets and config files
+## 3. Overlay Support
+- [ ] Add FAA sectional, IFR low, IFR high overlays as selectable layers.
+- [ ] Abstract overlay logic behind enums and view models.
+- [ ] Validate overlays on real devices and emulators.
+- [ ] Document overlay sources and configuration.
+  - Checkpoint: All overlays display correctly; docs updated.
 
-## Best Practices & Code Quality
-  - [ ] Add/expand unit tests for business logic
-  - [ ] Add/expand widget tests for UI
-  - [ ] Add/expand integration tests for flows (auth, map, overlays)
+## 4. Tile Caching & Fallback
+- [ ] Implement tile caching for offline support.
+- [ ] Add fallback logic for missing tiles.
+- [ ] Test caching and fallback on various devices.
+  - Be aware: Storage limits, cache invalidation, and platform differences.
 
-## Additional Best Practices & Stability
-- [ ] Add error boundary widgets and global error handling for uncaught exceptions
-- [ ] Add logging for errors and important events (consider Sentry or Firebase Crashlytics)
-- [ ] Add runtime checks for platform-specific features (e.g., permissions, sensors)
-- [ ] Add automated test coverage reporting to CI/CD
-- [ ] Add pre-commit hooks for lint, format, and tests (e.g., with Husky or Lefthook)
-- [ ] Review all dependencies for maintenance and security (remove unused/outdated packages)
-- [ ] Add onboarding documentation for new contributors
+## 5. Error Handling & Stability
+- [ ] Add error boundary widgets and global error handling.
+- [ ] Integrate logging for errors and important events (Sentry/Firebase Crashlytics).
+- [ ] Add runtime checks for permissions and platform-specific features.
+  - Rationale: Improves reliability and debugging.
 
-## CI/CD
-- [ ] Set up GitHub Actions workflow for:
-  - [ ] Linting
-  - [ ] Testing
-  - [ ] Android build
-  - [ ] iOS build (macOS runner)
-- [ ] Add steps to restore/write secrets for builds
-- [ ] Ensure workflow runs on every push and pull request
+## 6. Security & Secrets
+- [ ] Remove all secrets from repo/logs.
+- [ ] Store secrets in environment variables or CI/CD secrets.
+- [ ] Add .gitignore rules for secrets/config files.
+- [ ] Add CI/CD steps to restore/write secrets at build time.
+  - Be aware: Never commit secrets; automate secret management.
 
-- [ ] Add workflow to run all appropriate tests and create all debug builds (Android, iOS, Web if applicable)
+## 7. Testing & CI/CD
+- [ ] Expand unit, widget, and integration tests for all flows.
+- [ ] Set up GitHub Actions for linting, testing, and builds (Android/iOS/Web).
+- [ ] Add automated test coverage reporting.
+- [ ] Add pre-commit hooks for lint, format, and tests.
+  - Checkpoint: CI/CD runs on every push/PR; coverage is tracked.
 
-## Documentation TODOs
-- [ ] Update docs as features evolve
-- [ ] Improve onboarding notes and diagrams
-- [ ] Add/expand technical guides as needed
+## 8. Documentation & Onboarding
+- [ ] Update docs as features evolve.
+- [ ] Add onboarding notes and diagrams for contributors.
+- [ ] Expand technical guides for overlays, map, and options.
+  - Rationale: Ensures maintainability and easy onboarding.
 
-## MapLibre Migration Review
-- [ ] Review migration status and update [docs/maplibre_migration.md](maplibre_migration.md)
-- [ ] Validate overlays and tile caching after migration
+## 9. MapLibre Migration Prep
+- [ ] Abstract all map logic behind `BaseMapView` and service layer.
+- [ ] Prepare for migration to MapLibre (vector tiles, advanced overlays).
+- [ ] Document migration steps and update architecture docs.
+  - Checkpoint: Migration plan is clear; code is ready for switch.
 
-## FAA Chart Pipeline Review
-- [ ] Periodically review FAA chart pipeline and overlay accuracy
+## 10. FAA Chart Pipeline Review
+- [ ] Periodically review FAA chart pipeline and overlay accuracy.
 
-## Web Support (after mobile is stable)
-// Add web-specific TODOs here after mobile is stable
+## 11. Web Support (after mobile is stable)
+- [ ] Add web-specific TODOs and implementation steps.
 
 ---
-Add more TODOs below as needed.
+**Rationale:**
+This roadmap ensures modular, testable, and maintainable code. Each checkpoint is designed to catch issues early, improve UX, and make future migration (to MapLibre) seamless. Documenting rationale and things to be aware of helps onboard new contributors and avoid common pitfalls.
