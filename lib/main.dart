@@ -1,9 +1,59 @@
 import 'package:flutter/material.dart';
-import 'features/splash/splash_screen.dart';
-import 'features/map/map_screen.dart';
+import 'features/splash/widgets/splash_screen.dart';
+import 'features/map/widgets/map_screen.dart';
+
+
+import 'core/error_handler.dart';
 
 void main() {
-  runApp(const AviationMapApp());
+  setupGlobalErrorHandling();
+  runApp(const ErrorBoundary(child: AviationMapApp()));
+}
+
+class ErrorBoundary extends StatefulWidget {
+  final Widget child;
+  const ErrorBoundary({required this.child, super.key});
+
+  @override
+  State<ErrorBoundary> createState() => _ErrorBoundaryState();
+}
+
+class _ErrorBoundaryState extends State<ErrorBoundary> {
+  Object? _error;
+
+  @override
+  void initState() {
+    super.initState();
+    FlutterError.onError = (FlutterErrorDetails details) {
+      setState(() {
+        _error = details.exception;
+      });
+      FlutterError.presentError(details);
+    };
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_error != null) {
+      return MaterialApp(
+        home: Scaffold(
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.error, color: Colors.red, size: 64),
+                const SizedBox(height: 16),
+                const Text('An unexpected error occurred.', style: TextStyle(fontSize: 20)),
+                const SizedBox(height: 8),
+                Text(_error.toString(), style: const TextStyle(color: Colors.red)),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+    return widget.child;
+  }
 }
 
 class AviationMapApp extends StatelessWidget {
