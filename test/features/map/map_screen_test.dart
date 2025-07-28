@@ -1,6 +1,7 @@
+import 'package:aviationmap/features/map/widgets/map_screen.dart';
+import 'package:aviationmap/features/map/core/location_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:aviationmap/features/map/map_screen.dart';
 import 'package:geolocator/geolocator.dart';
 
 /// Tests for MapScreen widget.
@@ -14,7 +15,6 @@ class FakeLocationService extends LocationService {
     this.permissionDenied = false,
     this.throwOnLocation = false,
   });
-
 
   @override
   Future<bool> requestPermission() async => !permissionDenied;
@@ -92,6 +92,11 @@ void main() {
       await tester.tap(fab);
       await tester.pumpAndSettle(); // Ensure all timers/animations complete
       // No direct way to verify map recenter, but button is present and tap does not throw
+    });
+
+    testWidgets('shows map UI (Scaffold present)', (tester) async {
+      await tester.pumpWidget(const MaterialApp(home: MapScreen()));
+      expect(find.byType(Scaffold), findsOneWidget);
     });
   });
 }
