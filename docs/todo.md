@@ -19,6 +19,22 @@
 - [ ] Add basic unit and widget tests for map and location flows.
   - Checkpoint: Tests pass for permission, location, and UI states.
 
+### For maintainability and future development:
+- [ ] Abstract location and permission logic into a service/provider (not just in widget).
+- [ ] Use a view model or state notifier for map state (location, errors, permission).
+- [ ] Ensure all services (location, map) are injectable/mocked in tests.
+- [ ] Add a mock location provider for widget tests (simulate denied/allowed/error).
+- [ ] Add basic accessibility labels for map controls and error messages.
+- [ ] Prepare for i18n (wrap user-facing strings for easy translation).
+- [ ] Add hooks for logging permission/location events (even if just debugPrint for now).
+- [ ] Profile map and location update performance (ensure no jank on low-end devices).
+- [ ] Add a “dev mode” toggle to show debug info (e.g., current lat/lon, permission state).
+- [ ] Document how to run and test the map MVP in README or a dev guide.
+- [ ] Design error UI to be easily extendable (e.g., error widget with retry/callback).
+- [ ] (Optional) Save/restore last map position if location is denied.
+- [ ] Add doc comments to all public classes/methods, especially for map and location logic.
+- [ ] Add a basic test for map screen to CI pipeline (if not already).
+
 ## 2. Option Bubble & Grid
 - [ ] Implement Option Bubble (floating button) to open Option Grid.
 - [ ] Add quick actions to Option Grid (e.g., switch overlays, center map).

@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
+/// SplashScreen displays the app branding and a loading indicator.
+///
+/// This widget is the entry point for app setup logic. Navigation to the main
+/// map screen is handled by the parent (e.g., SplashToMap). Setup logic can be
+/// added in the timer callback or via dependency injection for extensibility.
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -8,6 +13,7 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
+/// State for SplashScreen. Handles timer and cleanup.
 class _SplashScreenState extends State<SplashScreen> {
   Timer? _timer;
 

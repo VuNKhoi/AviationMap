@@ -12,7 +12,20 @@ import 'package:aviationmap/main.dart';
 import 'package:aviationmap/features/splash/widgets/splash_screen.dart';
 import 'package:aviationmap/features/map/widgets/map_screen.dart';
 
+/// Widget tests for the main app entry point.
+///
+/// Ensures the app builds and renders the initial splash screen.
 void main() {
+  group('App', () {
+    testWidgets('renders splash screen on launch', (tester) async {
+      await tester.pumpWidget(const AviationMapApp());
+      expect(find.text('AviationMap'), findsOneWidget);
+      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+      // Wait for splash timer to complete to avoid pending timer error
+      await tester.pumpAndSettle(const Duration(seconds: 3));
+    });
+  });
+
   group('AviationMapApp', () {
     testWidgets('Splash screen displays, runs setup, and transitions to map', (
       WidgetTester tester,

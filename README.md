@@ -114,8 +114,17 @@ integration_test/
 - Use constants and theming for all UI elements.
 - Document all public classes and methods.
 
----
+## Code Documentation
+- All public classes, methods, and important private logic should have Dart doc comments (///) explaining their purpose, usage, and any important details.
+- Each feature folder should include or reference a Markdown `index.md` with:
+  - Feature overview and purpose
+  - Key implementation details
+  - Extensibility and testing notes
+- Complex widgets, services, and providers should have inline comments for non-obvious logic or architectural decisions.
+- All new code and refactors should include or update relevant documentation.
+- See `lib/features/splash/index.md` and `lib/features/map/index.md` for feature doc examples.
 
+---
 
 ## Architectural Principles: Decoupling & Maintainability
 
