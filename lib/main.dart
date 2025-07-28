@@ -1,7 +1,8 @@
+import 'package:aviationmap/features/map/widgets/map_screen.dart';
 import 'package:flutter/material.dart';
-import 'features/splash/widgets/splash_screen.dart';
-import 'features/map/widgets/map_screen.dart';
 
+import 'dart:async';
+import 'features/splash/widgets/splash_screen.dart';
 
 import 'core/error_handler.dart';
 
@@ -43,9 +44,15 @@ class _ErrorBoundaryState extends State<ErrorBoundary> {
               children: [
                 const Icon(Icons.error, color: Colors.red, size: 64),
                 const SizedBox(height: 16),
-                const Text('An unexpected error occurred.', style: TextStyle(fontSize: 20)),
+                const Text(
+                  'An unexpected error occurred.',
+                  style: TextStyle(fontSize: 20),
+                ),
                 const SizedBox(height: 8),
-                Text(_error.toString(), style: const TextStyle(color: Colors.red)),
+                Text(
+                  _error.toString(),
+                  style: const TextStyle(color: Colors.red),
+                ),
               ],
             ),
           ),
@@ -79,16 +86,24 @@ class SplashToMap extends StatefulWidget {
 }
 
 class _SplashToMapState extends State<SplashToMap> {
+  Timer? _navTimer;
+
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 2), () {
+    _navTimer = Timer(const Duration(seconds: 2), () {
       if (mounted) {
         Navigator.of(
           context,
         ).pushReplacement(MaterialPageRoute(builder: (_) => const MapScreen()));
       }
     });
+  }
+
+  @override
+  void dispose() {
+    _navTimer?.cancel();
+    super.dispose();
   }
 
   @override

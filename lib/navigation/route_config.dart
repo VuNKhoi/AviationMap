@@ -1,6 +1,6 @@
+import 'package:aviationmap/features/map/widgets/map_screen.dart';
 import 'package:go_router/go_router.dart';
 import '../features/splash/widgets/splash_screen.dart';
-import '../features/map/map_screen.dart';
 
 /// Central route configuration for AviationMap ✈️
 final GoRouter router = GoRouter(

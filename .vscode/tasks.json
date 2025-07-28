@@ -1,14 +1,41 @@
 {
 	"version": "2.0.0",
-	"tasks": [
-		{
-			"type": "shell",
-			"label": "Run AviationMap Android App",
-			"command": "flutter run -d android",
-			"group": "build",
-			"problemMatcher": [
-				"$dart-flutter"
-			]
-		}
-	]
+  "tasks": [
+	{
+	  "type": "shell",
+  "label": "Run AviationMap Android App",
+  "command": "flutter run -d emulator-5554",
+	  "group": "build",
+	  "problemMatcher": [
+		"$dart-flutter"
+	  ]
+	},
+	{
+	  "type": "shell",
+	  "label": "Run AviationMap iOS App",
+	  "command": "flutter run -d ios",
+	  "group": "build",
+	  "problemMatcher": [
+		"$dart-flutter"
+	  ]
+	},
+	{
+	  "type": "shell",
+	  "label": "Run Flutter Tests",
+	  "command": "flutter test --reporter=expanded",
+	  "group": "test",
+	  "problemMatcher": [
+		"$dart-flutter"
+	  ]
+	},
+	{
+	  "type": "shell",
+	  "label": "Flutter Analyze",
+	  "command": "flutter analyze --no-pub --color",
+	  "group": "test",
+	  "problemMatcher": [
+		"$dart-flutter"
+	  ]
+	}
+  ]
 }
