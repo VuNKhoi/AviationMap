@@ -38,14 +38,10 @@ class _SplashScreenState extends State<SplashScreen> {
             SizedBox(height: 24),
             Text(
               'AviationMap',
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+              style: TextStyle(color: Colors.white, fontSize: 28),
             ),
             SizedBox(height: 16),
-            CircularProgressIndicator(color: Colors.white),
+            CircularProgressIndicator(),
           ],
         ),
       ),
