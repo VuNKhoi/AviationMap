@@ -11,7 +11,7 @@ class MapViewModel extends ChangeNotifier {
   bool loading = true;
 
   MapViewModel({LocationService? locationService})
-      : locationService = locationService ?? LocationService();
+    : locationService = locationService ?? LocationService();
 
   Future<void> init() async {
     loading = true;
