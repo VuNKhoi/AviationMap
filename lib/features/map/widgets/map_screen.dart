@@ -97,7 +97,7 @@ class _MapScreenState extends State<MapScreen> {
             Positioned.fill(
               child: IgnorePointer(
                 child: Container(
-                  color: Colors.black.withOpacity(0.2),
+                  color: Colors.black.withAlpha((0.2 * 255).toInt()),
                   child: const Center(
                     child: SizedBox(
                       width: 48,

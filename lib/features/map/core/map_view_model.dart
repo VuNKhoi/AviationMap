@@ -67,6 +67,7 @@ class MapViewModel extends ChangeNotifier {
     _safeNotifyListeners();
   }
 
+  @override
   void dispose() {
     _disposed = true;
     super.dispose();
