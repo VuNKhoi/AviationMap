@@ -181,6 +181,14 @@ jobs:
         with:
           name: coverage-summary
           path: coverage
+      - name: Read coverage summary
+        id: coverage_summary
+        run: |
+          summary=$(cat coverage/summary.txt)
+          echo "summary<<EOF" >> $GITHUB_ENV
+          echo "$summary" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
       - name: Send Email Notification 📧
         uses: dawidd6/action-send-mail@v3
         with:
@@ -199,11 +207,11 @@ jobs:
             Status: ${{ job.status }}
             
             Artifacts:
-            - Android APK: ${{ steps.upload-apk.outputs.artifact-url }}
-            - iOS Debug: ${{ steps.upload-ios.outputs.artifact-url }}
+            - Android APK: (see Actions tab > Artifacts > debug-apk)
+            - iOS Debug: (see Actions tab > Artifacts > debug-ios)
             
             Coverage Summary:
-            $(cat coverage/summary.txt)
+            ${{ env.summary }}
             
             Check the Actions tab for full logs and details!
             
