@@ -20,7 +20,8 @@ AviationMap is designed for maintainability, testability, and scalability, follo
 | test/          | Unit/widget tests (mirrors lib/)              |
 | docs/          | Documentation                                 |
 
-Each feature folder must have its own `index.md` for documentation.
+
+See [docs/index.md](index.md) for documentation structure, expectations, and feature documentation requirements.
 
 ## Dependency Injection & State Management
 - Riverpod is used for all app state and service injection.

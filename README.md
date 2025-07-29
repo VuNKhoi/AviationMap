@@ -6,51 +6,14 @@
 
 ## No Authentication
 Aviation Map is fully open and free to use. No login, registration, or authentication is required. All features are available to every user.
-## Project & Documentation Structure
 
-### Codebase Organization
-```
-lib/
-  constants.dart
-  app.dart
-  main.dart
-  features/
-    splash/
-      index.md        # Feature documentation (Markdown)
-      splash_screen.dart
-    map/
-      index.md        # Feature documentation (Markdown)
-      map_screen.dart
-    options/
-      index.md        # Feature documentation (Markdown)
-      ...
-    ...
-  widgets/
-  services/
-  utils/
-test/
-integration_test/
-docs/
-  index.md           # Documentation hub
-  architecture.md    # Architecture and principles
-  todo.md            # Project TODOs
-  CONTRIBUTING.md    # Contribution guidelines
-  migration.md       # Migration guide
-  ...
-```
+## Project Structure
 
-### Naming Conventions
-- Feature folders use singular names (e.g., `map`, `splash`, `options`).
-- Each feature folder contains an `index.md` for documentation and relevant Dart files for implementation.
-- Shared documentation is in the `docs/` folder, with links to feature docs.
-- All links in documentation point to the correct feature or doc location for consistency.
+See [docs/architecture.md](docs/architecture.md) for the canonical folder structure, naming conventions, and architectural principles.
 
-### Documentation Practices
-- All features have their own `index.md` in their respective folders.
-- The main documentation index (`docs/index.md`) links to all features and core docs.
-- Documentation is updated as features evolve and new folders/files are added.
+## Documentation Structure
 
-This structure ensures clarity, maintainability, and easy onboarding for new contributors.
+See [docs/index.md](docs/index.md) for documentation structure, expectations, and links to all major docs and features.
 - **Interoperability**: Tiles and styles are stored in open formats (XYZ raster, Style JSON v8).
 - **Dependency injection**: Map engine selection is configurable for easy migration.
 - **Offline-first**: The architecture anticipates offline support from the start.
@@ -73,34 +36,8 @@ Aviation Map is designed to support advanced aviation features such as FAA chart
 - The app's map abstraction ensures seamless integration and future migration between mapping engines.
 - Styling, interactivity, and offline support are supported in both approaches.
 
-## Project Structure
-```
-lib/
-  constants.dart
-  app.dart
-  main.dart
-  features/
-    splash/
-      splash_screen.dart
-    map/
-      map_screen.dart
-    // No auth feature folder (fully open app)
-    // home/ (not used, splash and map are entry points)
-    ...
-  widgets/
-  services/
-  utils/
-  ...
 test/
 integration_test/
-```
-
-## Testing
-- **Widget and unit tests**: All reusable widgets and flows are tested, including splash screen and navigation transitions.
-- **Integration tests**: Navigation flows (e.g., splash to map) are covered.
-- **Test helpers**: Common test setup and mocks are provided in `test_helpers.dart`.
-- **Test grouping**: All tests in a file should be placed inside a `group()` for clarity, organization, and to ensure proper setup/teardown. This is a project convention for all test files.
-
 ## Future Plans
 - Complete flutter_map MVP and user testing.
 - Build out the `BaseMapView` abstraction for all map logic (start early to support multiple map/overlay types).
